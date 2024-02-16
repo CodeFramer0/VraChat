@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  web:
+    container_name: django
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: always  
+    command: >
+      sh -c "python manage.py collectstatic --noinput &&
+             python manage.py makemigrations &&
+             python manage.py migrate &&
+             gunicorn core.wsgi:application --bind 0.0.0.0:8000"
+    volumes:
+      - static:/backend/static
+      - media:/backend/media 
+    expose:
+      - 8000
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - db
+
+  db:
+    container_name: db
+    restart: always
+    image: postgres:13.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./backend/.env
+
+  nginx:
+    container_name: nginx
+    build: ./nginx
+    restart: always
+    volumes:
+      - static:/backend/static
+      - media:/backend/media
+    ports:
+      - 80:80
+    depends_on:
+      - web
+
+
+
+    
+
+
+volumes:
+  postgres_data:
+  static:
+  media:
