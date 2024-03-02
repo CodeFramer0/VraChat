@@ -2,7 +2,7 @@
 import Header from './components/Header'
 import History from './components/History'
 import Chat from './components/Chat'
-// import './app.css'
+import './app.css'
 
 
 function App() {
