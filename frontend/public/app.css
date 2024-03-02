@@ -1,0 +1,47 @@
+.navbar,
+        .sidebar,
+        .card,
+        .btn,
+        .form-control {
+            border-radius: 10px;
+            background-image: linear-gradient(to right, #222, #333);
+        }
+
+        .navbar-nav {
+            margin-left: auto;
+        }
+
+        .list-group-item {
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            padding: 20px;
+        }
+
+        .d-flex.align-items-center {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .my-chat-message {
+            font-size: 1.1em;
+        }
+
+        .my-sidebar-block {
+            border-radius: 70px 70px 70px 70px;
+        }
+        
+        .menu-button {
+            background: azure;
+        }
+        #send_message{
+            margin-top: 2%; 
+            border: medium solid whitesmoke;
+            transition: 0.6s;
+        }
+        #send_message:hover{
+            filter: invert(100%);
+            border: medium solid black;
+            transition: 0.4s;
+        }

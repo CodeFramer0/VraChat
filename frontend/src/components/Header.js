@@ -17,9 +17,9 @@ export default class Header extends Component {
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 </ul>
                 <button type="button" className="btn btn-secondary menu-button" data-mdb-ripple-init>
-                    <i classNames="fa-regular fa-circle-user avatar ms-auto fs-3" style={{ color:'black'}}></i>
+                    <i className="fa-regular fa-circle-user avatar ms-auto fs-3" style={{ color:'black'}}></i>
                 </button>
-  
+
             </div>
         </div>
     </header>
