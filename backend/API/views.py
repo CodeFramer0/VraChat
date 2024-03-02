@@ -72,8 +72,10 @@ def gpt(request):
     
     throttle_classes = [UserRateThrottle, AnonRateThrottle]
     promt = request.query_params.get('promt')
-    chat_id = request.query_params.get('chat_id')        
-    chat = Chat.objects.get(id=int(chat_id))
+    if request.query_params.get('chat_id'):
+        chat_id = request.query_params.get('chat_id')        
+        chat = Chat.objects.get(id=int(chat_id))
+  
     if len(chat.history)<3:
 
         chat.history = [
@@ -88,12 +90,11 @@ def gpt(request):
 
     chat.history[0]['parts']= chat.history[0]['parts']+f"{promt}\n"
     chat.save()
-    print(chat.history)
     messages = Message.objects.filter(chat=chat).all()
+    Message.objects.create(chat=chat,message=promt)
     content = model.start_chat(history=chat.history)
-    s =  StreamingHttpResponse(stream_response_generator(promt,content,chat)) 
-    print(s)
-    return s
+    StreamingHttpResponse(stream_response_generator(promt,content,chat)) 
+    return StreamingHttpResponse(stream_response_generator(promt,content,chat)) 
    
 
 
@@ -113,6 +114,6 @@ def stream_response_generator(promt,content,chat):
             
         except Exception as e:
             print(e)
-         
-
+  
+    Message.objects.create(chat=chat,message=response.text,is_bot = True)
 

@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from rest_framework.authtoken.models import Token
 from .models import Chat,Message
-
+import datetime
 
 def index(request):
     if request.user.is_authenticated:
@@ -36,7 +36,7 @@ def registration(request):
                 token, created = Token.objects.get_or_create(user=user)
 
        
-                return render(request,'web_interface/cabinet.html',{})
+                return redirect('/cabinet/')
             else:
                 form = RegisterForm()
                 return render(request,'web_interface/reg.html',{
@@ -73,20 +73,21 @@ def user_login(request):
         'form':form
     })
 
-def cabinet(request,token = None,chat_id=None):
-     
+def cabinet_and_chat(request,token = None,chat_id=None):
     user = request.user
     chats = Chat.objects.filter(user=user)
-    if request.GET.get('chat_id'):
-        chat_id = int(request.GET.get('chat_id'))
-        active_chat = Chat.objects.get(id=chat_id)
-    else:
-        active_chat = Chat.objects.filter(user=user).last()  
-    messages = Message.objects.filter(chat=active_chat).all()    
+    print(chat_id)
+
+    active_chat = Chat.objects.filter(user=user,id=chat_id)
+    print(active_chat)
+    return HttpResponse(200)   
+    messages = Message.objects.filter(chat=active_chat)
+    print(messages)
+    return HttpResponse(200)   
 
     if request.user.is_authenticated:
         token = Token.objects.filter(user=user).first()     
-    return render(request,'web_interface/cabinet.html',{
+    return render(request,f'web_interface/cabinet.html',{
         'user':user,
         'token':token,
         'chats':chats,
@@ -95,4 +96,18 @@ def cabinet(request,token = None,chat_id=None):
         })
 
 
+def cabinet(request,token = None):
+     
+    user = request.user
+    chats = Chat.objects.filter(user=user)
+
+   
+
+    if request.user.is_authenticated:
+        token = Token.objects.filter(user=user).first()     
+    return render(request,f'web_interface/cabinet.html',{
+        'user':user,
+        'token':token,
+        'chats':chats,
+        })
 

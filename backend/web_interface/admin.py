@@ -3,11 +3,11 @@ from .models import Chat,Message
 
 @admin.register(Chat)
 class ChatAdmin(admin.ModelAdmin):
-    list_display = ['history']
+    list_display = ['user','date','history']
     
 
 
 @admin.register(Message)
 class MessageAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['chat','message','is_bot']
 

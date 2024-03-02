@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en" data-mdb-theme="dark">
 
@@ -5,61 +6,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Кабинет</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fontawesome-6-pro@6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="{static 'web_interface/css/cabinet.css'}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.umd.min.js"></script>
-    <script defer src="./script.js"></script>
-    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-    <script
-  src="https://code.jquery.com/jquery-3.7.1.js"
-  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-  crossorigin="anonymous"></script>
-    <style>
-       .navbar,
-        .sidebar,
-        .card,
-        .btn,
-        .form-control {
-            border-radius: 10px;
-            background-image: linear-gradient(to right, #222, #333);
-        }
-
-        .navbar-nav {
-            margin-left: auto;
-        }
-
-        .list-group-item {
-            margin-bottom: 10px;
-        }
-
-        .card-text {
-            padding: 20px;
-        }
-
-        .d-flex.align-items-center {
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-
-        .my-chat-message {
-            font-size: 1.1em;
-        }
-
-        .my-sidebar-block {
-            border-radius: 70px 70px 70px 70px;
-        }
-    </style>
+    
 
 
 
 </head>
 
 <body>
-    <header class="navbar navbar-expand-lg">
+    <header class="navbar navbar-expand-lg sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/cabinet/">ВраЧат</a>
+            <a class="navbar-brand" href=".">ВраЧат</a>
             <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
                 data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -68,8 +30,8 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 </ul>
-                <button type="button" class="btn btn-secondary" data-mdb-ripple-init>
-                    <i class="fa-regular fa-circle-user avatar ms-auto fs-3"></i>
+                <button type="button" class="btn btn-secondary menu-button" data-mdb-ripple-init>
+                    <i class="fa-regular fa-circle-user avatar ms-auto fs-3" style="color:black;"></i>
                 </button>
 
             </div>
@@ -78,228 +40,76 @@
 
     <div class="d-flex">
         <nav id="sidebarMenu" class="col-2 collapse d-lg-block sidebar collapse">
-            <div class="position-sticky">
+            <div style="top:10%;" class="sticky-top">
                 <div class="list-group list-group-flush mx-3 mt-4">
                     <h4 class="list-group-item py-2">
                         <center><span>Мои чаты</span></center>
-                       
-                        
                     </h4>
+                    <a href="#" class="my-sidebar-block list-group-item list-group-item-action py-2 ripple">
+                        <center><i class="fa-solid fa-circle-plus"></i> <b>Создать новый</b></center>
+                    </a>
                     {% for chat in chats %}
-                    <a href="?chat_id={{chat.id}}" class="list-group-item list-group-item-action py-2 ripple">
+                    <hr class="hr hr-blurry" />
+                    <a href="/cabinet/{{chat.id}}/" class="my-sidebar-block list-group-item list-group-item-action py-2 ripple active">
                         <i class="fa-regular fa-message fa-fw me-3"></i><span>{{ chat.date }}</span>
                     </a>
-                    <!-- <a href="?chat={{chat.id}}" class="list-group-item list-group-item-action py-2 ripple">
-                        <i class="fa-regular fa-message fa-fw me-3"></i><span>{{ chat.date }}</span>
-                    </a> -->
-                    {% endfor %}
-                    
+                    {%endfor%}
+
+
                 </div>
             </div>
         </nav>
-
+        {% if active_chat %}
         <main class="container mt-5">
             <div class="row justify-content-center">
                 <div class="col-md-9">
                     <section class="card mb-3">
                         <div class="card-header text-muted">Переписка 11 февраля 14:23
-                            <button class="btn-secondary" type="button" data-bs-toggle="modal" data-bs-target="#DeleteModal" style="right: 2%; top: 15%; position: fixed; font-size: x-large;">
-                                <i style="color:red;" class="fa-regular fa-trash-can"></i>
-                            </button>
                         </div>
                         <div class="card-body">
                             <div class="card-text">
-                                {%for message in messages%}
-                                {% if message.is_bot %}
-                                <div class="d-flex align-items-center">
-                                    <i class="fa-solid fa-circle fa-2x" style="color: #32d704;"></i>
-                                    <p class="ms-3 mb-0">{{message.message}}
-                                    </p>
-                                </div> 
-
-                                {%else%}
                                 <div class="d-flex mb-3">
                                     <i class="fa-solid fa-user fa-2x"></i>
-                                    <p class="note note-light ms-3">{{message.message}}</p>
-                                </div> 
-
-                                
-                                {% endif %}
-                                {% endfor %}
+                                    <p class="my-chat-message note note-light ms-3">123</p>
+                                </div>
+                                <div class="d-flex ">
+                                    <i class="fa-solid fa-circle fa-2x" style="color: #32d704;"></i>
+                                    <p class="my-chat-message ms-3 mb-0" style="word-break: break-all;">321
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </section>
-                    <div class="d-flex align-items-center sticky-bottom">
-                        <input type="text" class="form-control form-control-lg me-2 rounded-pill"
-                            placeholder="Введите запрос сюда..." id="prompt_input" />
-                        <button type="button" class="btn btn-success rounded-pill" data-mdb-ripple-init
-                            data-mdb-ripple-color="light" id="send_message">
+                    <div style="padding-bottom:2%;background:#303030;box-shadow: 0px -7px 14px 0px #303030;"
+                        class="d-flex align-items-center sticky-bottom">
+                        <input style="margin-top: 2%;  box-shadow: 0px 0px 2px 2px white;" type="text"
+                            class="form-control form-control-lg me-2 rounded-pill" placeholder="Введите запрос сюда..."
+                            id="prompt_input" />
+                        <button type="button"
+                            class="btn btn-success rounded-pill" data-mdb-ripple-init data-mdb-ripple-color="light"
+                            id="send_message">
                             <i class="fa-solid fa-paper-plane fs-3"></i>
                         </button>
                     </div>
+
                 </div>
             </div>
         </main>
+        {%else%}
+        <main class="container mt-5">
+            <div class="row justify-content-center">
+             <h1>Выберите чат</h1>
+            </div>
+        </main>
+        {%endif%}
     </div>
+
+
+
+
+<footer>
+    <script defer src="{% static 'web_interface/js/main.js'%}"></script>
+</footer>
 </body>
 
 </html>
-
-<script>
-function get_id(){
-  ids = document.querySelectorAll('.ms-3.mb-0');
-
-  return `${ids.length+1}`
-  
-}
-
-"use strict";
-const sidebarTogglerButton = document.querySelector('.sidebar-toggler-btn');
-const bardWrapperElement = document.querySelector('#bard__wrapper');
-if (sidebarTogglerButton && bardWrapperElement) {
-    sidebarTogglerButton.addEventListener('click', () => {
-        bardWrapperElement.classList.toggle('nav-active');
-    });
-}
-
-let parent = document.querySelector('.card-text');
-document.querySelector(".fa-regular.fa-trash-can").addEventListener("click", async(e) => {
-    console.log(123);
-    document.cookie = "history = 0; max-age = 0"
-});
-
-
-
-document.querySelector("#send_message").addEventListener("click", async(e) => {
-
-  let promt_input = document.querySelector('.rounded-pill');
-  promt_text = promt_input.value;
-  promt_input.value = '';
-  user_message = document.createElement('div');
-
-  user_message.innerHTML = `<div class="d-flex mb-3">
-                                    <i class="fa-solid fa-user fa-2x"></i>
-                                    <p class="note note-light ms-3">${promt_text}</p>
-                                </div>`
-
-  parent.appendChild(user_message);
-
-
-  
-  
-
-  
-  let id = get_id();
-  let bot_message = document.createElement('div');
-  bot_message.innerHTML = `
-  <div class="d-flex align-items-center">
-                                    <i class="fa-solid fa-circle fa-2x" style="color: #32d704;"></i>
-                                    <p class="ms-3 mb-0" id = "${id}"  hidden> 
-                                    </p>
-                                </div>
-  `;
-
-
-  // answer.text
-  parent.appendChild(bot_message);
-  
-
-  await get_answer(promt_text,id)
-
-
-  
-    
-
-});
-
-
-async function get_answer(promt_text,id) {
-  el = document.getElementById(id);
-  el.hidden = false;
-
-  
-  const response = await fetch(`http://127.0.0.1:8000/api-auth/gpt/?promt=${promt_text}&chat_id={{ active_chat.id }}`)
-  const reader = response.body.getReader();
-  const decoder = new TextDecoder();
-  let result = await reader.read();
-  while (!result.done) {
-    const text = decoder.decode(result.value);
-    console.log("chunk is", text)
-    result = await reader.read();
-    
-    el.textContent += text;
-    
-  
-   
-  }
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-  function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie != '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-
-
-
-
-
-
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

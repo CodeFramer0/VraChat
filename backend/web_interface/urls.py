@@ -8,5 +8,6 @@ urlpatterns = [
     path('registration/',views.registration,name='register'),
     path('login/',views.user_login,name='login'),
     path('cabinet/', views.cabinet, name='cabinet'),
+    path('cabinet/<int:chat_id>/',views.cabinet_and_chat)
    
 ]

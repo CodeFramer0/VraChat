@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'API',
-    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -45,7 +44,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-     'corsheaders.middleware.CorsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -128,7 +127,15 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+if DEBUG:
+    # DATABASES['default'] = DATABASES['test']
+    STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
+
+else:
+    # DATABASES['default'] = DATABASES['prod']    
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

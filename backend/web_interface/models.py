@@ -10,9 +10,12 @@ class Chat(models.Model):
     class Meta:
         verbose_name = "Чат"
         verbose_name_plural = "Чаты"
-
+    def __str__(self) -> str:
+        return f"{self.user}"
 
 class Message(models.Model):
     chat = models.ForeignKey(Chat,on_delete=models.CASCADE)
     message = models.TextField()
     is_bot = models.BooleanField(default=False)
+    def __str__(self) -> str:
+        return super().__str__()
