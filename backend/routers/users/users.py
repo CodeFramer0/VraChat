@@ -9,13 +9,15 @@ from .schema import UserSchema
 
 
 
-class UserDb(Base):
+class User(Base):
     __tablename__ = "Users"
 
     id = Column(Integer, primary_key=True,autoincrement='auto') 
     email = Column(String)
     password = Column(String)
     phone = Column(String)
+    def __str__(self):
+        return f"User: {self.email} ({self.phone})"
 
 
 
@@ -32,23 +34,30 @@ router = APIRouter(
 
 
 @router.get("/")
-async def read_users(response_model=UserSchema,db: Session = Depends(get_db)):
-    return db.query(UserDb).all()
+async def read_users(db: Session = Depends(get_db)):
+    return db.query(User).all()
 
 
-@router.post("/")
-async def read_user(user:UserSchema,db: Session = Depends(get_db)):
-    password = Hasher.get_password_hash(user.password)
+@router.get("/{id}")
+async def read_user(id:int,db: Session = Depends(get_db)):
+    user =  db.query(User).filter(User.id==id).first()
+    if user is None:
+        raise HTTPException(status_code=404)  
+    return user
+
+# @router.post("/")
+# async def read_user(user:UserSchema,db: Session = Depends(get_db)):
+#     password = Hasher.get_password_hash(user.password)
     
-    db_change = UserDb(
-        email=user.email,
-        password=password,
-        phone=user.phone
-        )
+#     db_change = User(
+#         email=user.email,
+#         password=password,
+#         phone=user.phone
+#         )
     
-    db.add(db_change)
-    db.commit()
-    db.refresh(db_change)
-    return db_change
+#     db.add(db_change)
+#     db.commit()
+#     db.refresh(db_change)
+#     return db_change
 
 
