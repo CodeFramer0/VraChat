@@ -1,6 +1,6 @@
-import {Header} from '../components/Header'
-import {History} from '../components/History'
-import {Chat} from '../components/Chat'
+import {Header} from '../components/cabinet/Header'
+import {History} from '../components/cabinet/History'
+import {Chat} from '../components/cabinet/Chat'
 
 const Cabinet = ()=>{
     return(

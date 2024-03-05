@@ -1,4 +1,4 @@
-import Chats from './API/Chats'
+import Chats from '../API/Chats'
 
 
 const History = () =>{ 

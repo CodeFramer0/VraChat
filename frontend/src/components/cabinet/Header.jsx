@@ -5,6 +5,9 @@ import React, { Component } from 'react'
 const Header = () =>{
     return (
         <header className="navbar navbar-expand-lg sticky-top">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fontawesome-6-pro@6.4.0/css/all.min.css" />
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.min.css" />
+            <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
         <div className="container-fluid">
             <a className="navbar-brand" href="#">ВраЧат</a>
             <button className="navbar-toggler" type="button" data-mdb-toggle="collapse"
