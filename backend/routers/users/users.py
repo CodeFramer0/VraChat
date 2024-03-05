@@ -12,7 +12,7 @@ from .schema import UserSchema
 class User(Base):
     __tablename__ = "Users"
 
-    id = Column(Integer, primary_key=True,autoincrement='auto') 
+    id = Column(Integer, primary_key=True) 
     email = Column(String)
     password = Column(String)
     phone = Column(String)
@@ -33,12 +33,12 @@ router = APIRouter(
 
 
 
-@router.get("/")
+@router.get("/",response_model=list[UserSchema])
 async def read_users(db: Session = Depends(get_db)):
     return db.query(User).all()
 
 
-@router.get("/{id}")
+@router.get("/{id}",response_model=UserSchema)
 async def read_user(id:int,db: Session = Depends(get_db)):
     user =  db.query(User).filter(User.id==id).first()
     if user is None:

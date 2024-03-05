@@ -4,7 +4,7 @@ from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, DECIMAL,Dat
 from sqlalchemy.orm import Session,relationship
 from database import Base
 from ..chats.chats import Chat
-
+from. schema import MessageSchema
 
 class Message(Base):
     __tablename__ = 'Messages'
@@ -12,6 +12,8 @@ class Message(Base):
     chat_id = Column(Integer, ForeignKey(Chat.id))
     chat = relationship('Chat', foreign_keys='Message.chat_id',single_parent=True)
     text = Column(Text)
+    date = Column(Date)
+    datetime = Column(DateTime)
     is_bot = Column(Boolean(name='is_bot'))
     
     def __str__(self):
@@ -27,12 +29,12 @@ router = APIRouter(
 )
 
 
-@router.get("/")
+@router.get("/",response_model=list[MessageSchema])
 async def read_messages(db: Session = Depends(get_db)):
     return db.query(Chat).all()
 
 
-@router.get("/{id}")
+@router.get("/{id}",response_model=MessageSchema)
 async def read_message(id:int,db: Session = Depends(get_db)):
     chat =  db.query(Chat).filter(Chat.id==id).first()
     if chat is None:
