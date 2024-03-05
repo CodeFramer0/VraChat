@@ -3,8 +3,7 @@ import React, { Component } from 'react'
 
 
 
-export default class Chat extends Component {
-  render() {
+const Chat = () => {
     return (
         <main className="container mt-5">
         <div className="row justify-content-center">
@@ -80,5 +79,6 @@ export default class Chat extends Component {
 
 
     )
-  }
 }
+
+export {Chat}

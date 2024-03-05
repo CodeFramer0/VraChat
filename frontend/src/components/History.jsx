@@ -1,10 +1,7 @@
-import React, { Component } from 'react'
 import Chats from './API/Chats'
 
 
-
-export default class History extends Component {
-  render() {
+const History = () =>{ 
     return (
         <nav id="sidebarMenu" className="col-2 collapse d-lg-block sidebar collapse">
             <div style={{ top:'10%' }} className="sticky-top">
@@ -26,8 +23,9 @@ export default class History extends Component {
 
     )
   }
-}
 
 
 
 
+
+export {History}

@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 
 
 
-export default class Header extends Component {
-  render() {
+const Header = () =>{
     return (
         <header className="navbar navbar-expand-lg sticky-top">
         <div className="container-fluid">
@@ -26,5 +25,6 @@ export default class Header extends Component {
 
 
     )
-  }
 }
+
+export {Header}
