@@ -45,19 +45,21 @@ async def read_user(id:int,db: Session = Depends(get_db)):
         raise HTTPException(status_code=404)  
     return user
 
-# @router.post("/")
-# async def read_user(user:UserSchema,db: Session = Depends(get_db)):
-#     password = Hasher.get_password_hash(user.password)
+@router.post("/")
+async def write_user(user:UserSchema,db: Session = Depends(get_db)):
+    res = db.query(User).filter(User.email == user.email).first()
+    if res : raise HTTPException(status_code=409)  
+    password = Hasher.get_password_hash(user.password)
     
-#     db_change = User(
-#         email=user.email,
-#         password=password,
-#         phone=user.phone
-#         )
+    db_change = User(
+        email=user.email,
+        password=password,
+        phone='123'
+        )
     
-#     db.add(db_change)
-#     db.commit()
-#     db.refresh(db_change)
-#     return db_change
+    db.add(db_change)
+    db.commit()
+    db.refresh(db_change)
+    return db_change.id
 
 
