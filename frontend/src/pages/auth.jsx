@@ -1,6 +1,6 @@
 import styles from "../css/signUp.module.css"
 import {useState} from 'react'
-import { registration } from "../services/auth.service"
+import { registration,authorization } from "../services/auth.service"
 import React from 'react';
 import {
     useNavigate,
