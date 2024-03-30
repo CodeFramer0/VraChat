@@ -28,7 +28,8 @@ const registration = (email,password) =>{
 const authorization = (email,password) =>{
   let response = axios.get('http://127.0.0.1:8000/users/',{email:email,password:password})
   .then(function(){
-    cookies.set('id', response.text, { path: '/' });
+    document.cookie = 'user_id='+response.text
+    // cookies.set('id', response.text, { path: '/' });
     console.log(cookies.get('id')); // Pacman
   //  NotificationManager.success("Зарегистрирован успешно");
   })

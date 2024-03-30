@@ -36,6 +36,7 @@ const Auth = ()=>{
 
     const loginHandler = async (e) =>{
         navigate(`/cabinet/`);
+        document.cookie = 'user_id='+1
     }
 
 
