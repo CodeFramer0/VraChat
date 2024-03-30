@@ -35,8 +35,18 @@ const Auth = ()=>{
     }
 
     const loginHandler = async (e) =>{
-        navigate(`/cabinet/`);
-        document.cookie = 'user_id='+1
+        if (!password){
+            // NotificationManager.error("Вы не заполнили необходимые поля.");
+            return
+        }
+        if (!email){
+            // NotificationManager.error("Вы не заполнили необходимые поля.");
+            return
+        }
+        const response = await authorization(email.target.value,password.target.value)
+        if (response) {setIsLogin(true)}
+        navigate(`/cabinet/`)
+        ;
     }
 
 
