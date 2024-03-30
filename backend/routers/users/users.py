@@ -45,6 +45,12 @@ async def read_user(id:int,db: Session = Depends(get_db)):
         raise HTTPException(status_code=404)  
     return user
 
+@router.get("/{email}{password}",response_model=UserSchema)
+async def read_user_id(id:int,db: Session = Depends(get_db)):
+    user =  db.query(User).filter(User.id==id).first()
+    if user is None:
+        raise HTTPException(status_code=404)  
+    return user.id
 @router.post("/")
 async def write_user(user:UserSchema,db: Session = Depends(get_db)):
     res = db.query(User).filter(User.email == user.email).first()

@@ -2,10 +2,7 @@ import styles from "../css/signUp.module.css"
 import {useState} from 'react'
 import { registration } from "../services/auth.service"
 import React from 'react';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
-import 'react-notifications/lib/notifications.css';
 import {
-    BrowserRouter as Router,
     useNavigate,
   } from "react-router-dom";
 
@@ -24,16 +21,16 @@ const Auth = ()=>{
 
     const registrationHandler = async (e) =>{
         if (!password){
-            NotificationManager.error("Вы не заполнили необходимые поля.");
+            // NotificationManager.error("Вы не заполнили необходимые поля.");
             return
         }
-        if (password.target.value == password2.target.value)
+        if (password.target.value === password2.target.value)
         {
         const response = await registration(email.target.value,password.target.value)
         if (response) {setIsLogin(true)}
         }
         else{
-            NotificationManager.error("Пароль введен неверно.");
+            // NotificationManager.error("Пароль введен неверно.");
         }  
     }
 
@@ -126,7 +123,7 @@ const Auth = ()=>{
            
 
 
-                    <NotificationContainer/>
+                    {/* <NotificationContainer/> */}
 
 
 

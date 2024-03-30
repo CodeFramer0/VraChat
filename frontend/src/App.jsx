@@ -1,10 +1,6 @@
 import {
-  BrowserRouter as Router,
   Routes,
   Route,
-  Link,
-  Navigate,
-  useLocation,
 } from "react-router-dom";
 
 import { Cabinet } from './pages/cabinet'
