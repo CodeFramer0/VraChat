@@ -1,10 +1,45 @@
 import React from 'react'
+import { useState, useEffect } from 'react';
+import {
+  useParams
+} from "react-router-dom";
 
 
+function sendMessage()
+{
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+             chat_id: 'React POST Request Example',
+             text : document.getElementById('promt_input'),
+             is_bot: false
+            })
+    };
 
+    fetch('http://127.0.0.1:8000/messages/', requestOptions)
+    .then(response => response.json());
+}
 
 const Chat = () => {
+    const params = useParams();
+    const chat_id = params.id;
+    const [messages, setMessages] = useState([]);
+  useEffect(() => {
+    fetch(`http://127.0.0.1:8000/messages/?chat_id=${chat_id}`)
+      .then((res) => {
+        // console.log(res)
+        return res.json();
+      })
+      .then((data) => {
+        // console.log(data);
+        setMessages(data);
+      });
+  }, []);
+    if (chat_id && messages)
+    {
     return (
+
         <main className="container mt-5">
         <div className="row justify-content-center">
             <div className="col-md-9">
@@ -13,51 +48,24 @@ const Chat = () => {
                     </div>
                     <div className="card-body">
                         <div className="card-text">
+                        {messages.map((message) => (
+                            <>
+                            {message.is_bot?(
+                                <div className="d-flex ">
+                                    <i className="fa-solid fa-circle fa-2x" style={{ color: '#32d704' }}></i>
+                                    <p className="my-chat-message ms-3 mb-0">{message.text}
+                                    </p>
+                                </div>
+                            ):
                             <div className="d-flex mb-3">
                                 <i className="fa-solid fa-user fa-2x"></i>
-                                <p className="my-chat-message note note-light ms-3">Привет, как тебя зовут? Привет, как
-                                    тебя зовут? Привет, как тебя зовут? Привет, как тебя зовут? Привет, как тебя
-                                    зовут?</p>
+                                <p className="my-chat-message note note-light ms-3">{message.text}</p>
                             </div>
-                            <div className="d-flex ">
-                                <i className="fa-solid fa-circle fa-2x" style={{ color: '#32d704' }}></i>
-                                <p className="my-chat-message ms-3 mb-0">Привет! Меня зовут ВраЧат и я с радостью отвечу
-                                    вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы!вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы!вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы!вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы!вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы!вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы!вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы!вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы!вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы!вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы!вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы! Привет! Меня зовут ВраЧат и я с радостью отвечу на ваши
-                                    вопросы!вопросы!
-                                </p>
-                            </div>
+                        }
+                            </>
+                            ))}
+                            
+                            
                         </div>
                     </div>
                 </section>
@@ -75,10 +83,25 @@ const Chat = () => {
 
             </div>
         </div>
-    </main>
-
+        </main>
+    
 
     )
+    }
+    else{
+        return(
+            <main className="container mt-5">
+            <div className="row justify-content-center">
+                <div className="col-md-9">
+                <h2>Чат не выбран</h2>
+                    
+                    
+    
+                </div>
+            </div>
+        </main>
+        )
+    }
 }
 
 export {Chat}

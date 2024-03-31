@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-import Cookies from 'universal-cookie';
-const cookies = new Cookies();
+import Cookies from 'js-cookie';
 
 
 const registration = (email,password) =>{
@@ -30,8 +29,7 @@ const authorization = (email,password) =>{
     fetch(`http://127.0.0.1:8000/users?email=${email}&password=${password}`)
     .then((res) => res.json())
     .then((user) => {
-      document.cookie = 'user_id='+user.id
-      console.log(user.id)
+      Cookies.set('user_id',user.id)
     })
     // console.log(JSON.stringify(response.data))
     // document.cookie = 'user_id='+response.text

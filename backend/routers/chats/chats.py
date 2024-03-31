@@ -57,6 +57,7 @@ async def read_chat(id:int,db: Session = Depends(get_db)):
 
 
 
+
 @router.post("/")
 async def create_chat(chat:ChatSchemaPost,db: Session = Depends(get_db)):
     db_chat = Chat(

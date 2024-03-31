@@ -1,15 +1,19 @@
 import { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
+
 
 const Chats = () => {
+  const user_id = Cookies.get('user_id')
+  console.log(user_id)
   const [chats, setChats] = useState([]);
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/chats/')
+    fetch(`http://127.0.0.1:8000/chats/?user_id=${user_id}`)
       .then((res) => {
-        console.log(res)
+
         return res.json();
       })
       .then((data) => {
-        console.log(data);
+
         setChats(data);
       });
   }, []);

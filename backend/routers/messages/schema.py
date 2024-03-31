@@ -10,3 +10,8 @@ class MessageSchema(BaseModel):
     date: date
     datetime: datetime
     is_bot: bool
+
+class MessageSchemaPost(BaseModel):
+    chat_id: int 
+    text: str
+    is_bot: bool    
