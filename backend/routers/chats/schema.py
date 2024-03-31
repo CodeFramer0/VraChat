@@ -5,7 +5,7 @@ import locale
 
 
 
-# locale.setlocale(locale.LC_ALL, "ru") # the ru locale is installed
+
 
 
 
