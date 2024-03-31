@@ -12,8 +12,7 @@ class Message(Base):
     chat_id = Column(Integer, ForeignKey(Chat.id))
     # chat = relationship('Chat', foreign_keys='Message.chat_id',single_parent=True)
     text = Column(Text)
-    date = Column(Date)
-    datetime = Column(DateTime)
+    date = Column(String)
     is_bot = Column(Boolean(name='is_bot'))
     
     def __str__(self):
@@ -45,15 +44,16 @@ async def read_messages(chat_id:int,db: Session = Depends(get_db)):
 
 @router.post("/")
 async def create_messages(message:MessageSchema,db: Session = Depends(get_db)):
+    print(message)
     db_message = Message(
         chat_id = message.chat_id,
         text = message.text,
         date = message.date,
-        datetime = message.datetime,
         is_bot = message.is_bot,
     )
     
     db.add(db_message)
     db.commit()
     db.refresh(db_message)
+
     return db_message

@@ -1,30 +1,36 @@
-import React from 'react'
 import { useState, useEffect } from 'react';
 import {
   useParams
 } from "react-router-dom";
+import {flushSync} from 'react-dom'
 
-
-function sendMessage()
+function sendMessage(promt)
 {
+    console.log(promt)
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-             chat_id: 'React POST Request Example',
-             text : document.getElementById('promt_input'),
-             is_bot: false
+            "chat_id": 8,
+            "chat": "string",
+            "text": promt,
+            "date": "string",
+            "is_bot": false
+
             })
     };
-
     fetch('http://127.0.0.1:8000/messages/', requestOptions)
     .then(response => response.json());
+    window.location.reload()
+    
+   
 }
 
 const Chat = () => {
     const params = useParams();
     const chat_id = params.id;
     const [messages, setMessages] = useState([]);
+    const [prompt,setPromt] = useState('')
   useEffect(() => {
     fetch(`http://127.0.0.1:8000/messages/?chat_id=${chat_id}`)
       .then((res) => {
@@ -51,7 +57,7 @@ const Chat = () => {
                         {messages.map((message) => (
                             <>
                             {message.is_bot?(
-                                <div className="d-flex ">
+                                <div className="d-flex mb-3">
                                     <i className="fa-solid fa-circle fa-2x" style={{ color: '#32d704' }}></i>
                                     <p className="my-chat-message ms-3 mb-0">{message.text}
                                     </p>
@@ -73,10 +79,11 @@ const Chat = () => {
                     className="d-flex align-items-center sticky-bottom">
                     <input style={{ margintop: '2%',  boxshadow: '0px 0px 2px 2px white'}} type="text"
                         className="form-control form-control-lg me-2 rounded-pill" placeholder="Введите запрос сюда..."
-                        id="prompt_input" />
+                        id="prompt_input" 
+                        onChange={setPromt}/>
                     <button type="button"
                         className="btn btn-success rounded-pill" data-mdb-ripple-init data-mdb-ripple-color="light"
-                        id="send_message">
+                        id="send_message" onClick={()=>sendMessage(prompt.target.value)}>
                         <i className="fa-solid fa-paper-plane fs-3"></i>
                     </button>
                 </div>
