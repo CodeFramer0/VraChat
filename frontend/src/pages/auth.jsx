@@ -2,6 +2,7 @@ import styles from "../css/signUp.module.css"
 import {useState} from 'react'
 import { registration,authorization } from "../services/auth.service"
 import React from 'react';
+import Cookies from 'js-cookie';
 import {
     useNavigate,
   } from "react-router-dom";
@@ -46,6 +47,7 @@ const Auth = ()=>{
         const response = await authorization(email.target.value,password.target.value)
         if (response) {setIsLogin(true)}
         navigate(`/cabinet/`)
+        Cookies.set('is_logged',"True")
         ;
     }
 
