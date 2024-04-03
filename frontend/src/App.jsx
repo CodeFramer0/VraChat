@@ -19,6 +19,10 @@ function Cabinet_check(){
   }
 }
 
+function Logout(){
+  Cookies.set('is_logged',"False")
+    return <Navigate to="/" />;
+}
 
 
 function App() {
@@ -31,6 +35,7 @@ function App() {
           <Route path="/"element={<Cabinet_check />}/>
           <Route path="/cabinet/"element={<Cabinet />} />
           <Route path="/cabinet/:id" element={<Cabinet />} />
+          <Route path="/logout" element={<Logout />} />
         </Routes>
         </div>
 

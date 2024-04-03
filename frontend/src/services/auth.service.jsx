@@ -26,15 +26,16 @@ const registration = (email,password) =>{
 
 const authorization = (email,password) =>{
     // var response = axios.get(`http://127.0.0.1:8000/users?email=${email}&password=${password}`)
-    fetch(`http://127.0.0.1:8000/users?email=${email}&password=${password}`)
-    .then((res) => res.json())
-    .then((user) => {
-      Cookies.set('user_id',user.id)
-      console.log(user)
-    })
-    
+    const response = fetch(`http://127.0.0.1:8000/users?email=${email}&password=${password}`)
+    .then((res) => {
+    if(res.status === 200){
+            return res.json()
+          }
+          else{return false}
+        })
+    return response}
   
   
 
-}
+
 export {registration,authorization}
