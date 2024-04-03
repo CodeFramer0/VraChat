@@ -45,10 +45,16 @@ const Auth = ()=>{
             return
         }
         const response = await authorization(email.target.value,password.target.value)
-        if (response) {setIsLogin(true)}
+        console.log(response)
+        return
+        if (response) {setIsLogin(true)
         navigate(`/cabinet/`)
         Cookies.set('is_logged',"True")
-        ;
+        }
+        else
+        {
+            console.log('Нихуя')
+        };
     }
 
 

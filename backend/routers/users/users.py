@@ -4,7 +4,7 @@ from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import Session
 from database import Base
 from hashing import Hasher
-from .schema import UserSchema
+from .schema import UserSchema,UserSchemaPost
 from hashing import Hasher
 
 
@@ -60,7 +60,7 @@ async def read_user_verif(email:str,password:str,db: Session = Depends(get_db)):
     return user
 
 @router.post("/")
-async def write_user(user:UserSchema,db: Session = Depends(get_db)):
+async def write_user(user:UserSchemaPost,db: Session = Depends(get_db)):
     res = db.query(User).filter(User.email == user.email).first()
     if res : raise HTTPException(status_code=409)  
     password = Hasher.get_password_hash(user.password)
