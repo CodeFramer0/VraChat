@@ -34,7 +34,7 @@ router = APIRouter(
 
 @router.post("/")
 async def create_answer(answer:GeminiSchema,db: Session = Depends(get_db)):
-    content = model.start_chat()
-    response =  model.generate_content(answer.text)
-    return response.text
+    # content = model.start_chat()
+    # response =  model.generate_content(answer.text)
+    return "Ку"
 

@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import {
   useParams
 } from "react-router-dom";
-import {flushSync} from 'react-dom'
 
 function sendMessage(promt)
 {

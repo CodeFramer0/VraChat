@@ -9,9 +9,12 @@ const History = () =>{
                     <h4 className="list-group-item py-2">
                         <center><span>Мои чаты</span></center>
                     </h4>
-                    <a href="#" className="my-sidebar-block list-group-item list-group-item-action py-2 ripple">
+                    <form action="/create_chat/" method='POST'>
+                    <button className="my-sidebar-block list-group-item list-group-item-action py-2 ripple">
                         <center><i className="fa-solid fa-circle-plus"></i> <b>Создать новый</b></center>
-                    </a>
+                    </button>
+                    </form>
+                    
                     <hr className="hr hr-blurry" />
                     <div>
                             <Chats/>
