@@ -1,10 +1,14 @@
 import axios from 'axios'
 import Chats from '../API/Chats'
 import Cookies from 'js-cookie';
+import { generatePath } from "react-router";
+import {useNavigate} from "react-router-dom";
+
 
 const History = () =>{ 
+    const navigate = useNavigate();
     const createChat = async(e) => {
-
+        
         let user_id = Cookies.get("user_id")
         let date = "2024-04-04T11:00:44.920Z"
         const response = await fetch(`http://127.0.0.1:8000/chats/`,{
@@ -20,7 +24,11 @@ const History = () =>{
                 })
             })
                 
-        await console.log(await response.json())
+        let data = await response.json()
+        const pathTemplate = "/cabinet/:id/";
+        const path = generatePath(pathTemplate, { id: data['id'] });
+        await navigate(path)
+        
     } 
 
 
