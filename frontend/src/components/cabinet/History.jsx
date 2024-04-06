@@ -20,7 +20,7 @@ const History = () =>{
                 })
             })
                 
-        console.log(response)
+        await console.log(await response.json())
     } 
 
 
