@@ -3,17 +3,21 @@ import Chats from '../API/Chats'
 import Cookies from 'js-cookie';
 
 const History = () =>{ 
-    const createChat = (e) => {
+    const createChat = async(e) => {
 
         let user_id = Cookies.get("user_id")
         let date = "2024-04-04T11:00:44.920Z"
-        const response = fetch(`http://127.0.0.1:8000/chats/`,{
+        const response = await fetch(`http://127.0.0.1:8000/chats/`,{
             method: 'POST',
-            body:{
-                "user_id": 0,
-                "date": "2024-04-06T15:53:39.819Z",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                },
+            body: JSON.stringify({
+                "user_id": user_id,
+                "date": 'date',
                 "history": {}
-                }
+                })
             })
                 
         console.log(response)
