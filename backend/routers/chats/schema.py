@@ -12,16 +12,14 @@ import locale
 class ChatSchema(BaseModel):
     id: int
     user_id: int
-    date: datetime
+    date: str
     history: dict
     
-    @field_serializer('date')
-    def serialize_date(self, dt: datetime, _info):
-        return dt.strftime("%#d %B %H:%M")
+    
 
 class ChatSchemaPost(BaseModel):
     user_id: int
-    date: datetime
+    date: str
     history: Union[dict,None] = {}
     
    

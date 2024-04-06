@@ -14,7 +14,7 @@ class Chat(Base):
     id = Column(Integer, primary_key=True) 
     user_id = Column(Integer, ForeignKey(User.id))
     user = relationship('User', foreign_keys='Chat.user_id')
-    date = Column(DateTime)
+    date = Column(Text)
     history =  Column('history', JSON)
     
     def __str__(self):
@@ -58,7 +58,7 @@ async def read_chat(id:int,db: Session = Depends(get_db)):
 
 
 
-@router.post("/",response_model=ChatSchema)
+@router.post("/")
 async def create_chat(chat:ChatSchemaPost,db: Session = Depends(get_db)):
     db_chat = Chat(
         user_id = chat.user_id,
@@ -70,6 +70,7 @@ async def create_chat(chat:ChatSchemaPost,db: Session = Depends(get_db)):
     db.commit()
     db.refresh(db_chat)
     return db_chat
+    
 
 
 
