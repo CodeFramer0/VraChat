@@ -41,6 +41,7 @@ const Chat = () => {
         setMessages(data);
       });
   }, []);
+    console.log(messages)
     if (chat_id && messages)
     {
     return (
