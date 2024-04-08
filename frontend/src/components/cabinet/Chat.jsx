@@ -25,6 +25,32 @@ function sendMessage(promt)
    
 }
 
+
+
+
+const messages()=>{
+    return (
+    {messages.map((message) => (
+        <>
+        {message.is_bot?(
+            <div className="d-flex mb-3">
+                <i className="fa-solid fa-circle fa-2x" style={{ color: '#32d704' }}></i>
+                <p className="my-chat-message ms-3 mb-0">{message.text}
+                </p>
+            </div>
+        ):
+        <div className="d-flex mb-3">
+            <i className="fa-solid fa-user fa-2x"></i>
+            <p className="my-chat-message note note-light ms-3">{message.text}</p>
+        </div>
+    }
+        </>
+        ))}
+        
+        
+    </div>
+}
+
 const Chat = () => {
     const params = useParams();
     const chat_id = params.id;
@@ -41,8 +67,7 @@ const Chat = () => {
         setMessages(data);
       });
   }, []);
-    console.log(messages)
-    if (chat_id && messages)
+    if (chat_id && messages )
     {
     return (
 
@@ -54,25 +79,17 @@ const Chat = () => {
                     </div>
                     <div className="card-body">
                         <div className="card-text">
-                        {messages.map((message) => (
-                            <>
-                            {message.is_bot?(
-                                <div className="d-flex mb-3">
-                                    <i className="fa-solid fa-circle fa-2x" style={{ color: '#32d704' }}></i>
-                                    <p className="my-chat-message ms-3 mb-0">{message.text}
-                                    </p>
-                                </div>
-                            ):
-                            <div className="d-flex mb-3">
-                                <i className="fa-solid fa-user fa-2x"></i>
-                                <p className="my-chat-message note note-light ms-3">{message.text}</p>
-                            </div>
-                        }
-                            </>
-                            ))}
+         
+                 
+                        
+                       
+                         
                             
+                         
                             
+                
                         </div>
+                        
                     </div>
                 </section>
                 <div style={{ paddingbottom:'2%',background:'#303030', boxshadow: '0px -7px 14px 0px #303030' }}

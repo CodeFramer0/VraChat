@@ -5,11 +5,9 @@ const Chats = () => {
   useEffect(() => {
     fetch(`http://127.0.0.1:8000/chats/${id}`)
       .then((res) => {
-        console.log(res)
         return res.json();
       })
       .then((data) => {
-        console.log(data);
         setChats(data);
       });
   }, []);

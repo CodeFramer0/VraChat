@@ -4,7 +4,6 @@ import { generatePath } from "react-router";
 
 const Chats = () => {
   const user_id = Cookies.get('user_id')
-  console.log(user_id)
   const [chats, setChats] = useState([]);
   useEffect(() => {
     fetch(`http://127.0.0.1:8000/chats/?user_id=${user_id}`)

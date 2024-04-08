@@ -11,7 +11,6 @@ const registration = (email,password) =>{
    })
   .catch(function (error) {
     if (error.response) {
-      console.log(error.response.status);
         if (error.response.status === 409){
             // NotificationManager.error("Данный пользователь уже существует");
             return false
