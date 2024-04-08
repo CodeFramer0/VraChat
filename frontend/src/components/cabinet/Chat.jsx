@@ -28,8 +28,7 @@ function sendMessage(promt)
 
 
 
-const messages()=>{
-    return (
+const get_messages = (messages)=>{
     {messages.map((message) => (
         <>
         {message.is_bot?(
@@ -48,7 +47,8 @@ const messages()=>{
         ))}
         
         
-    </div>
+    
+
 }
 
 const Chat = () => {
@@ -81,9 +81,8 @@ const Chat = () => {
                         <div className="card-text">
          
                  
-                        
-                       
-                         
+
+                         {messages()}
                             
                          
                             
