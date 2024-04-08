@@ -10,7 +10,6 @@ const History = () =>{
     const createChat = async(e) => {
         
         let user_id = Cookies.get("user_id")
-        let date = "2024-04-04T11:00:44.920Z"
         const response = await fetch(`http://127.0.0.1:8000/chats/`,{
             method: 'POST',
             headers: {

@@ -1,16 +1,14 @@
 import { useState, useEffect } from 'react';
-import {
-  useParams
-} from "react-router-dom";
+import {useParams, Link} from "react-router-dom";
 
-function sendMessage(promt)
+function sendMessage(promt, chat_id)
 {
     console.log(promt)
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            "chat_id": 8,
+            "chat_id": 79,
             "chat": "string",
             "text": promt,
             "date": "string",
@@ -20,16 +18,19 @@ function sendMessage(promt)
     };
     fetch('http://127.0.0.1:8000/messages/', requestOptions)
     .then(response => response.json());
-    window.location.reload()
     
-   
+    
+
 }
 
 
 
 
 const get_messages = (messages)=>{
-    {messages.map((message) => (
+    if (messages.length === undefined){return}
+
+    const messages_data = messages.map((message) => (
+        
         <>
         {message.is_bot?(
             <div className="d-flex mb-3">
@@ -44,28 +45,31 @@ const get_messages = (messages)=>{
         </div>
     }
         </>
-        ))}
+        ))
+    return (<>{messages_data}</>)
+    }
         
         
     
 
-}
+
 
 const Chat = () => {
     const params = useParams();
     const chat_id = params.id;
     const [messages, setMessages] = useState([]);
     const [prompt,setPromt] = useState('')
-  useEffect(() => {
-    fetch(`http://127.0.0.1:8000/messages/?chat_id=${chat_id}`)
-      .then((res) => {
+    useEffect(() => {
+        fetch(`http://127.0.0.1:8000/messages/?chat_id=${chat_id}`)
+        .then(async(res) => {
         // console.log(res)
-        return res.json();
-      })
-      .then((data) => {
-        // console.log(data);
+        console.log(res)
+        return await res.json();
+        })
+        .then((data) => {
+        console.log(data);
         setMessages(data);
-      });
+        });
   }, []);
     if (chat_id && messages )
     {
@@ -82,7 +86,7 @@ const Chat = () => {
          
                  
 
-                         {messages()}
+                         {get_messages(messages)}
                             
                          
                             
@@ -99,7 +103,7 @@ const Chat = () => {
                         onChange={setPromt}/>
                     <button type="button"
                         className="btn btn-success rounded-pill" data-mdb-ripple-init data-mdb-ripple-color="light"
-                        id="send_message" onClick={()=>sendMessage(prompt.target.value)}>
+                        id="send_message" onClick={()=>sendMessage(prompt.target.value, chat_id)}>
                         <i className="fa-solid fa-paper-plane fs-3"></i>
                     </button>
                 </div>
