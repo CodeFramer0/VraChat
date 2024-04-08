@@ -1,27 +1,7 @@
 import { useState, useEffect } from 'react';
 import {useParams, Link} from "react-router-dom";
+import { Messages } from '../API/Messages';
 
-function sendMessage(promt, chat_id)
-{
-    console.log(promt)
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            "chat_id": 79,
-            "chat": "string",
-            "text": promt,
-            "date": "string",
-            "is_bot": false
-
-            })
-    };
-    fetch('http://127.0.0.1:8000/messages/', requestOptions)
-    .then(response => response.json());
-    
-    
-
-}
 
 
 
@@ -70,7 +50,46 @@ const Chat = () => {
         console.log(data);
         setMessages(data);
         });
-  }, []);
+    }, []);
+
+
+function sendMessage(promt, chat_id)
+{
+    console.log(promt.length)
+    if (promt.length === 0){return}
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            "chat_id": chat_id,
+            "chat": "string",
+            "text": promt,
+            "date": "string",
+            "is_bot": false
+
+            })
+    };
+    fetch('http://127.0.0.1:8000/messages/', requestOptions)
+    .then(response => response.json());
+    
+    fetch(`http://127.0.0.1:8000/messages/?chat_id=${chat_id}`)
+        .then((res) => {
+        // console.log(res)
+        console.log(res)
+        return res.json();
+        })
+        .then((data) => {
+            setMessages(data)});
+    
+    document.querySelector("#prompt_input").value = ""
+
+
+    
+
+
+}
+
+
     if (chat_id && messages )
     {
     return (

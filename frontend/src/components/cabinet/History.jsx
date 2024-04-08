@@ -27,6 +27,7 @@ const History = () =>{
         const pathTemplate = "/cabinet/:id/";
         const path = generatePath(pathTemplate, { id: data['id'] });
         await navigate(path)
+        window.location.reload()
         
     } 
 
