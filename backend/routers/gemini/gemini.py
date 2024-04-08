@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from dependencies import get_db
 from .schema import GeminiSchema
 from sqlalchemy.orm import Session
-from messages.messages import Message
+from routers.messages.messages import Message
 
 import google.generativeai as genai
 
