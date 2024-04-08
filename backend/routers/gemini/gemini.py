@@ -2,8 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from dependencies import get_db
 from .schema import GeminiSchema
 from sqlalchemy.orm import Session
-
-
+from messages.messages import Message
 
 import google.generativeai as genai
 
@@ -34,7 +33,19 @@ router = APIRouter(
 
 @router.post("/")
 async def create_answer(answer:GeminiSchema,db: Session = Depends(get_db)):
+  
+    
     # content = model.start_chat()
     # response =  model.generate_content(answer.text)
+    
+    message = db.query(Message(
+        chat_id = answer.chat_id,
+        date = 'date',
+        is_bot = True,
+        text = "Ку"
+    ))
+    db.add(message)
+    db.commit()
+    db.refresh()
     return "Ку"
 

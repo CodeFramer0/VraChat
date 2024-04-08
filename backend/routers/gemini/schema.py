@@ -9,4 +9,5 @@ from pydantic import BaseModel, EmailStr, Field, SecretStr,JsonValue,Json,field_
 class GeminiSchema(BaseModel):
     text:str
     history:dict
+    chat_id:int
     
