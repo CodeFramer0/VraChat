@@ -3,7 +3,7 @@ from dependencies import get_db
 from .schema import GeminiSchema
 from sqlalchemy.orm import Session
 from routers.messages.messages import Message
-
+from  routers.messages.schema import MessageSchemaPost
 import google.generativeai as genai
 
 from django.views.decorators.http import condition
@@ -32,12 +32,20 @@ router = APIRouter(
 
 
 @router.post("/")
-async def create_answer(db: Session = Depends(get_db)):
-  
+async def create_answer(answer:MessageSchemaPost,db: Session = Depends(get_db)):
+
     
     # content = model.start_chat()
     # response =  model.generate_content(answer.text)
+    db_message = Message(
+        chat_id = answer.chat_id,
+        text =  answer.text,
+        is_bot = True,
+    )
     
-   
-    return "Ку"
+    db.add(db_message)
+    db.commit()
+    db.refresh(db_message)
+    return db_message
+    
 

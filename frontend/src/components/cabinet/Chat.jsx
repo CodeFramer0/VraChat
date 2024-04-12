@@ -53,6 +53,24 @@ const Chat = () => {
     }, []);
 
 
+
+function sendPromtToBot(promt, chat_id){
+    console.log(promt.length)
+    if (promt.length === 0){return}
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            "chat_id": chat_id,
+            "text": promt,
+            "is_bot": true,
+
+            })
+    };
+    fetch('http://127.0.0.1:8000/gemini/', requestOptions)
+    .then(response => response.json());
+}
+
 function sendMessage(promt, chat_id)
 {
     console.log(promt.length)
@@ -72,6 +90,9 @@ function sendMessage(promt, chat_id)
     fetch('http://127.0.0.1:8000/messages/', requestOptions)
     .then(response => response.json());
     
+    sendPromtToBot(promt, chat_id)
+
+
     fetch(`http://127.0.0.1:8000/messages/?chat_id=${chat_id}`)
         .then((res) => {
         // console.log(res)
