@@ -8,7 +8,12 @@ import {useNavigate} from "react-router-dom";
 const History = () =>{ 
     const navigate = useNavigate();
     const createChat = async(e) => {
-        
+        const options = {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            };
         let user_id = Cookies.get("user_id")
         const response = await fetch(`http://127.0.0.1:8000/chats/`,{
             method: 'POST',
@@ -18,7 +23,7 @@ const History = () =>{
                 },
             body: JSON.stringify({
                 "user_id": user_id,
-                "date": 'date',
+                "date": new Date().toLocaleDateString(undefined, options),
                 "history": {}
                 })
             })
@@ -27,7 +32,7 @@ const History = () =>{
         const pathTemplate = "/cabinet/:id/";
         const path = generatePath(pathTemplate, { id: data['id'] });
         await navigate(path)
-        window.location.reload()
+        // window.location.reload()
         
     } 
 
