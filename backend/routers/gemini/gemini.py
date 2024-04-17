@@ -36,10 +36,10 @@ async def create_answer(answer:MessageSchemaPost,db: Session = Depends(get_db)):
 
     
     # content = model.start_chat()
-    # response =  model.generate_content(answer.text)
+    # response =  content.send_message(answer.text).text
     db_message = Message(
         chat_id = answer.chat_id,
-        text =  answer.text,
+        text =  "test",
         is_bot = True,
     )
     
@@ -48,4 +48,5 @@ async def create_answer(answer:MessageSchemaPost,db: Session = Depends(get_db)):
     db.refresh(db_message)
     return db_message
     
+
 
