@@ -70,7 +70,11 @@ function sendPromtToBot(promt, chat_id){
     fetch('http://127.0.0.1:8000/gemini/', requestOptions)
     .then(response => response.json());
 }
-
+const handleKeyPress = (event) => {
+    if(event.key === 'Enter'){
+        sendMessage(prompt.target.value, chat_id)
+    }
+};
 function sendMessage(promt, chat_id)
 {
     console.log(promt.length)
@@ -137,7 +141,7 @@ function sendMessage(promt, chat_id)
                 </section>
                 <div style={{ paddingbottom:'2%',background:'#303030', boxshadow: '0px -7px 14px 0px #303030' }}
                     className="d-flex align-items-center sticky-bottom">
-                    <input style={{ margintop: '2%',  boxshadow: '0px 0px 2px 2px white'}} type="text"
+                    <input  onKeyDown={handleKeyPress} style={{ margintop: '2%',  boxshadow: '0px 0px 2px 2px white'}} type="text"
                         className="form-control form-control-lg me-2 rounded-pill" placeholder="Введите запрос сюда..."
                         id="prompt_input" 
                         onChange={setPromt}/>

@@ -46,13 +46,14 @@ const Auth = ()=>{
         }
         const response = await authorization(email.target.value,password.target.value)
         if (response) {setIsLogin(true)
-        navigate(`/cabinet/`)
+        
         Cookies.set('user_id',response.id)
         Cookies.set('is_logged',"True")
+        navigate("/cabinet/")
         }
         else
         {
-            console.log('Нихуя')
+            console.log('Неверно')
         };
     }
 

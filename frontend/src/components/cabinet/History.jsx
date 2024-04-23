@@ -2,7 +2,7 @@ import axios from 'axios'
 import Chats from '../API/Chats'
 import Cookies from 'js-cookie';
 import { generatePath } from "react-router";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate } from "react-router-dom";
 
 
 const History = () =>{ 
@@ -32,7 +32,10 @@ const History = () =>{
         const pathTemplate = "/cabinet/:id/";
         const path = generatePath(pathTemplate, { id: data['id'] });
         await navigate(path)
-        // window.location.reload()
+        
+
+
+        window.location.reload()
         
     } 
 
